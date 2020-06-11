@@ -11,24 +11,10 @@ class CheckoutFooter extends Component {
           <Text style={styles.total}>Total:</Text>
           <Text style={styles.price}>${this.props.totalPrice}</Text>
         </View>
-
         <TouchableOpacity
           disabled={this.props.totalPrice === 0}
           onPress={() => {
-            Alert.alert(
-              "The purchase was successful",
-              null,
-              [
-                {
-                  text: "OK",
-                  onPress: () => {
-                    this.props.emptyCart();
-                    this.props.onPress();
-                  },
-                },
-              ],
-              { cancelable: false }
-            );
+            this.presentAlert();
           }}
         >
           <View style={styles.buttonContainer}>
@@ -36,6 +22,23 @@ class CheckoutFooter extends Component {
           </View>
         </TouchableOpacity>
       </View>
+    );
+  }
+
+  presentAlert() {
+    Alert.alert(
+      "The purchase was successful",
+      null,
+      [
+        {
+          text: "OK",
+          onPress: () => {
+            this.props.emptyCart();
+            this.props.onPress();
+          },
+        },
+      ],
+      { cancelable: false }
     );
   }
 }

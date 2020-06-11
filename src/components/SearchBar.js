@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import { View, TextInput, StyleSheet } from "react-native";
+import { View, TextInput, StyleSheet, TouchableOpacity } from "react-native";
 import { EvilIcons } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 import { connect } from "react-redux";
+import * as actions from "../actions/SearchActions";
 
 class SearchBar extends Component {
-  //term, onTermChange, onTermSubmit
   render() {
     return (
       <View style={styles.background}>
@@ -14,10 +15,20 @@ class SearchBar extends Component {
           autoCapitalize="none"
           autoCorrect={false}
           style={styles.input}
-          value={this.props.term}
-          onChangeText={this.props.onTermChange}
-          onEndEditing={this.props.onTermSubmit}
+          value={this.props.search.searchTerm}
+          onChangeText={this.props.setTerm}
+          onEndEditing={() => {
+            this.props.searchItem(this.props.search.searchTerm);
+          }}
         />
+        {this.props.search.searchTerm !== "" && (
+          <TouchableOpacity
+            style={{ alignSelf: "center" }}
+            onPress={this.props.clear}
+          >
+            <MaterialIcons name="clear" style={styles.icon} />
+          </TouchableOpacity>
+        )}
       </View>
     );
   }
@@ -40,9 +51,13 @@ const styles = StyleSheet.create({
   icon: {
     fontSize: 20,
     alignSelf: "center",
-    marginHorizontal: 15,
+    marginHorizontal: 10,
     color: "grey",
   },
 });
 
-export default connect()(SearchBar);
+const mapStateToProps = (state) => {
+  return { search: state.search };
+};
+
+export default connect(mapStateToProps, actions)(SearchBar);

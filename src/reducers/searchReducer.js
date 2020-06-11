@@ -1,10 +1,11 @@
-const searchState = {
+const initialState = {
   results: [],
+  searchTerm: "",
 };
 
-export default (state = searchState, action) => {
+export default (state = initialState, action) => {
   switch (action.type) {
-    case "search":
+    case "search_item":
       return {
         results: [
           {
@@ -14,14 +15,18 @@ export default (state = searchState, action) => {
             image: "https://i.imgur.com/FPG0aDd.jpg",
             id: 8,
           },
-          {
-            title: "Grapefruit",
-            price: 25,
-            category: "Fruit",
-            image: "https://i.imgur.com/YrlKeWd.jpg",
-            id: 9,
-          },
         ],
+        searchTerm: action.payload,
+      };
+    case "set_term":
+      return {
+        results: state.results,
+        searchTerm: action.payload,
+      };
+    case "clear":
+      return {
+        results: [],
+        searchTerm: "",
       };
     default:
       return state;

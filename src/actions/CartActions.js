@@ -12,9 +12,8 @@ export const removeArticle = (article) => {
   };
 };
 
-export const emptyCart = (article) => {
+export const emptyCart = () => {
   return {
     type: "empty_cart",
-    payload: article,
   };
 };

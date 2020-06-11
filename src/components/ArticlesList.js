@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Text, StyleSheet, SectionList } from "react-native";
+import Separator from "./Separator";
 import ListItem from "./ListItem";
 
 class ArticlesList extends Component {
@@ -26,6 +27,7 @@ class ArticlesList extends Component {
       <SectionList
         sections={this.sections()}
         keyExtractor={(item, index) => item.id + index}
+        ItemSeparatorComponent={() => <Separator />}
         renderSectionHeader={({ section }) => (
           <Text style={styles.sectionHeader}>{section.title}</Text>
         )}
