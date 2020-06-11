@@ -2,23 +2,33 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Text, StyleSheet, SectionList } from "react-native";
 import Separator from "./Separator";
-import ListItem from "./ListItem";
+import StoreItem from "./StoreItem";
 
 class ArticlesList extends Component {
   renderItem(article) {
-    return <ListItem article={article} />;
+    return <StoreItem article={article} />;
   }
 
   sections() {
     let sections = [];
-    this.props.categories.forEach((category) => {
+    if (this.props.searchResults.length) {
       sections.push({
-        title: category.name,
-        data: category.articles,
+        title: "Results",
+        data: this.props.searchResults,
         keyExtractor: (article) => article.id,
         renderItem: this.renderItem,
       });
-    });
+    } else {
+      this.props.categories.forEach((category) => {
+        sections.push({
+          title: category.name,
+          data: category.articles,
+          keyExtractor: (article) => article.id,
+          renderItem: this.renderItem,
+        });
+      });
+    }
+
     return sections;
   }
 
@@ -48,7 +58,10 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-  return { categories: state.data.categories };
+  return {
+    categories: state.data.categories,
+    searchResults: state.search.results,
+  };
 };
 
 export default connect(mapStateToProps)(ArticlesList);

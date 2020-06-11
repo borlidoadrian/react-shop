@@ -7,20 +7,12 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case "search_item":
       return {
-        results: [
-          {
-            title: "Kiwi",
-            price: 20,
-            category: "Fruit",
-            image: "https://i.imgur.com/FPG0aDd.jpg",
-            id: 8,
-          },
-        ],
+        results: filter(action),
         searchTerm: action.payload,
       };
     case "set_term":
       return {
-        results: state.results,
+        results: action.payload !== "" ? state.results : [],
         searchTerm: action.payload,
       };
     case "clear":
@@ -32,3 +24,17 @@ export default (state = initialState, action) => {
       return state;
   }
 };
+
+function filter(action) {
+  let arr = action.arrayToFilter
+    .reduce(function (accumulator, currentValue) {
+      return [...accumulator, ...currentValue.articles];
+    }, [])
+    .filter(function (item) {
+      return (
+        item.title.toLowerCase().includes(action.payload.toLowerCase()) ||
+        item.category.toLowerCase().includes(action.payload.toLowerCase())
+      );
+    });
+  return arr;
+}

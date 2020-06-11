@@ -4,7 +4,7 @@ import { Text, View, Image, StyleSheet } from "react-native";
 import AddButton from "./AddButton";
 import AmountButton from "./AmountButton";
 
-class ListItem extends Component {
+class StoreItem extends Component {
   contains = (article) => {
     // Checks if array contains the article
     let articleExists = false;
@@ -18,13 +18,7 @@ class ListItem extends Component {
 
   quantity = (article) => {
     // Returns the amount of articles with the same id
-    let count = 0;
-    this.props.cart.forEach((p) => {
-      if (article.id === p.id) {
-        count++;
-      }
-    });
-    return count;
+    return this.props.cart.filter((p) => p.id === article.id).length;
   };
 
   render() {
@@ -82,4 +76,4 @@ const mapStateToProps = (state) => {
   return { cart: state.cart.articles };
 };
 
-export default connect(mapStateToProps)(ListItem);
+export default connect(mapStateToProps)(StoreItem);

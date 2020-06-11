@@ -1,7 +1,8 @@
-export const searchItem = (param) => {
+export const searchItem = (param, array) => {
   return {
     type: "search_item",
     payload: param,
+    arrayToFilter: array,
   };
 };
 

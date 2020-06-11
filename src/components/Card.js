@@ -13,13 +13,7 @@ import * as actions from "../actions/CartActions";
 class Card extends Component {
   quantity = (article) => {
     // Returns amount of articles with the same id
-    let count = 0;
-    this.props.cart.forEach((p) => {
-      if (article.id === p.id) {
-        count++;
-      }
-    });
-    return count;
+    return this.props.cart.filter((p) => p.id === article.id).length;
   };
 
   render() {

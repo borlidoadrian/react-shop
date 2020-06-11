@@ -18,7 +18,11 @@ class SearchBar extends Component {
           value={this.props.search.searchTerm}
           onChangeText={this.props.setTerm}
           onEndEditing={() => {
-            this.props.searchItem(this.props.search.searchTerm);
+            this.props.search.searchTerm !== "" &&
+              this.props.searchItem(
+                this.props.search.searchTerm,
+                this.props.data.categories
+              );
           }}
         />
         {this.props.search.searchTerm !== "" && (
@@ -57,7 +61,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-  return { search: state.search };
+  return { data: state.data, search: state.search };
 };
 
 export default connect(mapStateToProps, actions)(SearchBar);
