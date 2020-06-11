@@ -1,0 +1,144 @@
+{
+  "categories": [
+    {
+      "name": "Fruits",
+      "id": 1046,
+      "articles": [
+        {
+          "title": "Kiwi",
+          "price": 20,
+          "category": "Fruit",
+          "image": "https://i.imgur.com/FPG0aDd.jpg",
+          "id": 8
+        },
+        {
+          "title": "Grapefruit",
+          "price": 25,
+          "category": "Fruit",
+          "image": "https://i.imgur.com/YrlKeWd.jpg",
+          "id": 9
+        },
+        {
+          "title": "Strawberry",
+          "price": 13,
+          "category": "Fruit",
+          "image": "https://i.imgur.com/EomM349.jpg",
+          "id": 10
+        },
+        {
+          "title": "Watermelon",
+          "price": 2,
+          "category": "Fruit",
+          "image": "https://i.imgur.com/57APgfU.jpg",
+          "id": 11
+        },
+        {
+          "title": "Apple",
+          "price": 13,
+          "category": "Fruit",
+          "image": "https://i.imgur.com/jsnV9AI.jpg",
+          "id": 12
+        },
+        {
+          "title": "Banana",
+          "price": 21.5,
+          "category": "Fruit",
+          "image": "https://i.imgur.com/9DNVRcT.jpg",
+          "id": 13
+        },
+        {
+          "title": "Coconut",
+          "price": 90,
+          "category": "Fruit",
+          "image": "https://i.imgur.com/eHK8nCg.jpg",
+          "id": 14
+        }
+      ]
+    },
+    {
+      "name": "Veggies",
+      "id": 1045,
+      "articles": [
+        {
+          "title": "Avocado",
+          "price": 12.5,
+          "category": "Veggie",
+          "image": "https://i.imgur.com/fiinsWY.jpg",
+          "id": 1
+        },
+        {
+          "title": "Tomato",
+          "price": 40.5,
+          "category": "Veggie",
+          "image": "https://i.imgur.com/zyRf6Vl.jpg",
+          "id": 2
+        },
+        {
+          "title": "Onion",
+          "price": 25,
+          "category": "Veggie",
+          "image": "https://i.imgur.com/ZhTInhf.jpg",
+          "id": 3
+        },
+        {
+          "title": "Corn",
+          "price": 28,
+          "category": "Veggie",
+          "image": "https://i.imgur.com/BZWBZmK.jpg",
+          "id": 4
+        },
+        {
+          "title": "Broccoli",
+          "price": 10.5,
+          "category": "Veggie",
+          "image": "https://i.imgur.com/ROvpBsZ.jpg",
+          "id": 5
+        },
+        {
+          "title": "Asparagus",
+          "price": 12,
+          "category": "Veggie",
+          "image": "https://i.imgur.com/kDXkP0H.jpg",
+          "id": 6
+        },
+        {
+          "title": "Pepper",
+          "price": 1999,
+          "category": "Veggie",
+          "image": "https://i.imgur.com/MgddDzY.jpg",
+          "id": 7
+        }
+      ]
+    }
+  ],
+  "publicity": [
+    {
+      "title": "Apple",
+      "price": 13,
+      "category": "Fruit",
+      "image": "https://i.imgur.com/jsnV9AI.jpg",
+      "id": 12
+    },
+    {
+      "title": "Banana",
+      "price": 21.5,
+      "category": "Fruit",
+      "image": "https://i.imgur.com/9DNVRcT.jpg",
+      "id": 13
+    },
+    {
+      "title": "Corn",
+      "price": 28,
+      "category": "Veggie",
+      "image": "https://i.imgur.com/BZWBZmK.jpg",
+      "id": 4
+    },
+    {
+      "title": "Broccoli",
+      "price": 10.5,
+      "category": "Veggie",
+      "image": "https://i.imgur.com/ROvpBsZ.jpg",
+      "id": 5
+    }
+  ]
+}
