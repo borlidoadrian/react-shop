@@ -1,6 +1,8 @@
+import { SEARCH_ITEM, SET_TERM, CLEAR } from "../config/ActionConstants";
+
 export const searchItem = (param, array) => {
   return {
-    type: "search_item",
+    type: SEARCH_ITEM,
     payload: param,
     arrayToFilter: array,
   };
@@ -8,13 +10,13 @@ export const searchItem = (param, array) => {
 
 export const setTerm = (term) => {
   return {
-    type: "set_term",
+    type: SET_TERM,
     payload: term,
   };
 };
 
 export const clear = () => {
   return {
-    type: "clear",
+    type: CLEAR,
   };
 };

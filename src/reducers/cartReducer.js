@@ -1,3 +1,11 @@
+import {
+  ADD_ARTICLE,
+  REMOVE_ARTICLE,
+  EMPTY_CART,
+  ADD,
+  SUBSTRACT,
+} from "../config/ActionConstants";
+
 const initialState = {
   articles: [],
   totalPrice: 0,
@@ -5,11 +13,11 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case "add_article":
+    case ADD_ARTICLE:
       return addArticle(state, action);
-    case "remove_article":
+    case REMOVE_ARTICLE:
       return removeArticle(state, action);
-    case "empty_cart":
+    case EMPTY_CART:
       return {
         articles: [],
         totalPrice: 0,
@@ -22,7 +30,7 @@ export default (state = initialState, action) => {
 function addArticle(state, action) {
   return {
     articles: contains(state, action.payload)
-      ? updateQuantity(state, action.payload.id, "ADD")
+      ? updateQuantity(state, action.payload.id, ADD)
       : [...state.articles, { ...action.payload, quantity: 1 }],
     totalPrice: state.totalPrice + action.payload.price,
   };
@@ -38,7 +46,7 @@ function removeArticle(state, action) {
   return {
     articles:
       contains(state, action.payload) && state.articles[index].quantity > 1
-        ? updateQuantity(state, action.payload.id, "SUBSTRACT")
+        ? updateQuantity(state, action.payload.id, SUBSTRACT)
         : arr,
     totalPrice: state.totalPrice - action.payload.price,
   };
@@ -51,7 +59,7 @@ function updateQuantity(state, id, type) {
   array[index] = {
     ...state.articles[index],
     quantity:
-      type === "ADD"
+      type === ADD
         ? state.articles[index].quantity + 1
         : state.articles[index].quantity - 1,
   };

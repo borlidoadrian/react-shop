@@ -1,19 +1,25 @@
+import {
+  ADD_ARTICLE,
+  REMOVE_ARTICLE,
+  EMPTY_CART,
+} from "../config/ActionConstants";
+
 export const addArticle = (article) => {
   return {
-    type: "add_article",
+    type: ADD_ARTICLE,
     payload: article,
   };
 };
 
 export const removeArticle = (article) => {
   return {
-    type: "remove_article",
+    type: REMOVE_ARTICLE,
     payload: article,
   };
 };
 
 export const emptyCart = () => {
   return {
-    type: "empty_cart",
+    type: EMPTY_CART,
   };
 };
