@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import {
   Text,
@@ -8,8 +8,22 @@ import {
   ImageBackground,
   Dimensions,
 } from "react-native";
+import Dots from "react-native-dots-pagination";
 
 class Carousel extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      index: 0,
+    };
+  }
+
+  onViewableItemsChanged = ({ viewableItems, changed }) => {
+    this.setState({
+      index: changed[0].index,
+    });
+  };
+
   renderItem(article) {
     return (
       <ImageBackground
@@ -38,6 +52,18 @@ class Carousel extends Component {
           snapToAlignment={"start"}
           decelerationRate={"fast"}
           snapToInterval={Dimensions.get("window").width - 30}
+          onViewableItemsChanged={this.onViewableItemsChanged}
+          viewabilityConfig={{
+            itemVisiblePercentThreshold: 50,
+          }}
+        />
+        <Dots
+          passiveDotWidth={8}
+          passiveDotHeight={8}
+          activeDotHeight={10}
+          activeDotWidth={10}
+          length={this.props.publicity.length}
+          active={this.state.index}
         />
       </View>
     );
@@ -47,6 +73,7 @@ class Carousel extends Component {
 const styles = StyleSheet.create({
   list: {
     margin: 15,
+    marginBottom: 5,
     borderRadius: 4,
   },
   image: {

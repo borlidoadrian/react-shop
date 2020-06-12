@@ -16,11 +16,6 @@ class CheckoutScreen extends Component {
     return <Card article={item} />;
   }
 
-  removeDuplicates() {
-    let set = new Set(this.props.cart);
-    return [...set];
-  }
-
   render() {
     return (
       <SafeAreaView style={{ backgroundColor: "white", flex: 1 }}>
@@ -29,7 +24,7 @@ class CheckoutScreen extends Component {
           style={styles.list}
           showsVerticalScrollIndicator={false}
           numColumns={2}
-          data={this.removeDuplicates()}
+          data={this.props.cart}
           renderItem={({ item }) => this.renderItem(item)}
           keyExtractor={(item) => item.id}
           contentContainerStyle={styles.contentContainer}

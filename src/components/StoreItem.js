@@ -17,8 +17,10 @@ class StoreItem extends Component {
   };
 
   quantity = (article) => {
-    // Returns the amount of articles with the same id
-    return this.props.cart.filter((p) => p.id === article.id).length;
+    let index = this.props.cart.findIndex(
+      (element) => element.id == article.id
+    );
+    return this.props.cart[index].quantity;
   };
 
   render() {

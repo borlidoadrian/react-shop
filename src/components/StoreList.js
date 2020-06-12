@@ -4,7 +4,7 @@ import { Text, StyleSheet, SectionList } from "react-native";
 import Separator from "./Separator";
 import StoreItem from "./StoreItem";
 
-class ArticlesList extends Component {
+class StoreList extends Component {
   renderItem(article) {
     return <StoreItem article={article} />;
   }
@@ -64,4 +64,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(ArticlesList);
+export default connect(mapStateToProps)(StoreList);

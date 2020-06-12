@@ -17,7 +17,13 @@ class CheckoutFooter extends Component {
             this.presentAlert();
           }}
         >
-          <View style={styles.buttonContainer}>
+          <View
+            style={
+              this.props.totalPrice === 0
+                ? styles.buttonContainerDisabled
+                : styles.buttonContainer
+            }
+          >
             <Text style={styles.text}>Checkout</Text>
           </View>
         </TouchableOpacity>
@@ -52,6 +58,16 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderRadius: 30,
     backgroundColor: "#502bf2",
+    height: 60,
+    marginHorizontal: 15,
+    marginBottom: 15,
+  },
+  buttonContainerDisabled: {
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 30,
+    backgroundColor: "black",
+    opacity: 0.1,
     height: 60,
     marginHorizontal: 15,
     marginBottom: 15,

@@ -1,7 +1,7 @@
 import React from "react";
 import { TouchableOpacity, SafeAreaView } from "react-native";
 import { Feather } from "@expo/vector-icons";
-import ArticlesList from "../ArticlesList";
+import StoreList from "../StoreList";
 import Carousel from "../Carousel";
 import SearchBar from "../SearchBar";
 
@@ -10,7 +10,7 @@ const MainScreen = () => {
     <SafeAreaView style={{ backgroundColor: "white", flex: 1 }}>
       <Carousel />
       <SearchBar />
-      <ArticlesList />
+      <StoreList />
     </SafeAreaView>
   );
 };

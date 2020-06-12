@@ -26,7 +26,7 @@ export default (state = initialState, action) => {
 };
 
 function filter(action) {
-  let arr = action.arrayToFilter
+  return action.arrayToFilter
     .reduce(function (accumulator, currentValue) {
       return [...accumulator, ...currentValue.articles];
     }, [])
@@ -36,5 +36,4 @@ function filter(action) {
         item.category.toLowerCase().includes(action.payload.toLowerCase())
       );
     });
-  return arr;
 }
