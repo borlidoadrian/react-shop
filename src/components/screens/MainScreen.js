@@ -1,6 +1,6 @@
 import React from "react";
-import { TouchableOpacity, SafeAreaView } from "react-native";
-import { Feather } from "@expo/vector-icons";
+import { SafeAreaView, TouchableOpacity } from "react-native";
+import NavigationCartIcon from "../NavigationCartIcon";
 import StoreList from "../StoreList";
 import Carousel from "../Carousel";
 import SearchBar from "../SearchBar";
@@ -19,7 +19,7 @@ MainScreen.navigationOptions = ({ navigation }) => {
   return {
     headerRight: () => (
       <TouchableOpacity onPress={() => navigation.navigate("Checkout")}>
-        <Feather style={{ marginRight: 15 }} name="shopping-cart" size={30} />
+        <NavigationCartIcon />
       </TouchableOpacity>
     ),
     title: null,
