@@ -7,13 +7,9 @@ import AmountButton from "./AmountButton";
 class StoreItem extends Component {
   contains = (article) => {
     // Checks if array contains the article
-    let articleExists = false;
-    this.props.cart.forEach((p) => {
-      if (article.id === p.id) {
-        articleExists = true;
-      }
-    });
-    return articleExists;
+    return (
+      this.props.cart.findIndex((element) => element.id == article.id) !== -1
+    );
   };
 
   quantity = (article) => {

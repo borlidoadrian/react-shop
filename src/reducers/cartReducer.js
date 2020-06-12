@@ -66,14 +66,7 @@ function updateQuantity(state, id, type) {
 
   return array;
 }
-
 function contains(state, article) {
   // Checks if state contains the article
-  let articleExists = false;
-  state.articles.forEach((p) => {
-    if (article.id === p.id) {
-      articleExists = true;
-    }
-  });
-  return articleExists;
+  return state.articles.findIndex((element) => element.id == article.id) !== -1;
 }
