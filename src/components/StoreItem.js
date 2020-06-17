@@ -21,11 +21,8 @@ const StoreItem = ({ cart, article }) => {
     <View style={styles.container}>
       <Image
         style={styles.image}
-        source={
-          product.photoUrl
-            ? { uri: product.photoUrl }
-            : require("../../assets/placeholder.jpg")
-        }
+        source={{ uri: product.photoUrl }}
+        defaultSource={require("../../assets/placeholder.jpg")}
       />
       <View style={styles.view}>
         <Text style={styles.title}>{product.name}</Text>

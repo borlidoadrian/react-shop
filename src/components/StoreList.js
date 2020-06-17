@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { Text, StyleSheet, SectionList } from "react-native";
+import { Text, StyleSheet, SectionList, ActivityIndicator } from "react-native";
 import Separator from "./Separator";
 import StoreItem from "./StoreItem";
 import * as actions from "../actions/DataActions";
 
-const StoreList = ({ products, searchResults, getProducts }) => {
+const StoreList = ({ products, searchResults, getProducts, isLoading }) => {
   const renderItem = (article) => {
     return <StoreItem article={article} />;
   };
@@ -38,7 +38,9 @@ const StoreList = ({ products, searchResults, getProducts }) => {
     getProducts();
   }, []);
 
-  return (
+  return isLoading ? (
+    <ActivityIndicator size="large" />
+  ) : (
     <SectionList
       sections={sections()}
       keyExtractor={(item, index) => item.id + index}
@@ -65,6 +67,7 @@ const mapStateToProps = (state) => {
   return {
     products: state.data.products,
     searchResults: state.search.results,
+    isLoading: state.data.loadingProducts,
   };
 };
 

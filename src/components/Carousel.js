@@ -7,11 +7,12 @@ import {
   View,
   ImageBackground,
   Dimensions,
+  ActivityIndicator,
 } from "react-native";
 import Dots from "react-native-dots-pagination";
 import * as actions from "../actions/DataActions";
 
-const Carousel = ({ promoted, getPromoted }) => {
+const Carousel = ({ promoted, getPromoted, isLoading }) => {
   const [index, setIndex] = useState(0);
 
   const onViewableItemsChanged = React.useRef((info) => {
@@ -23,6 +24,7 @@ const Carousel = ({ promoted, getPromoted }) => {
       <ImageBackground
         source={{ uri: product.item.photoUrl }}
         style={styles.image}
+        defaultSource={require("../../assets/loadingImage.png")}
       >
         <View style={styles.container}>
           <Text style={styles.title}>{product.item.description}</Text>
@@ -36,7 +38,9 @@ const Carousel = ({ promoted, getPromoted }) => {
     getPromoted();
   }, []);
 
-  return (
+  return isLoading ? (
+    <ActivityIndicator size="large" style={styles.image} />
+  ) : (
     <View>
       <FlatList
         horizontal
@@ -103,7 +107,10 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-  return { promoted: state.data.promoted };
+  return {
+    promoted: state.data.promoted,
+    isLoading: state.data.loadingPromoted,
+  };
 };
 
 export default connect(mapStateToProps, actions)(Carousel);

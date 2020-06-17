@@ -4,7 +4,11 @@ import { View, Text, StyleSheet, Image, Dimensions } from "react-native";
 const Card = ({ article }) => {
   return (
     <View>
-      <Image style={styles.image} source={{ uri: article.photoUrl }} />
+      <Image
+        style={styles.image}
+        source={{ uri: article.photoUrl }}
+        defaultSource={require("../../assets/loadingImage.png")}
+      />
       <View style={styles.textContainer}>
         <Text style={styles.title}>{article.name}</Text>
         <Text style={styles.price}>${article.price}</Text>
