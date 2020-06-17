@@ -1,42 +1,34 @@
-import React, { Component } from "react";
+import React from "react";
 import { View, TextInput, StyleSheet, TouchableOpacity } from "react-native";
 import { EvilIcons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { connect } from "react-redux";
 import * as actions from "../actions/SearchActions";
 
-class SearchBar extends Component {
-  render() {
-    return (
-      <View style={styles.background}>
-        <EvilIcons name="search" style={styles.icon} />
-        <TextInput
-          placeholder="Search"
-          autoCapitalize="none"
-          autoCorrect={false}
-          style={styles.input}
-          value={this.props.search.searchTerm}
-          onChangeText={this.props.setTerm}
-          onEndEditing={() => {
-            this.props.search.searchTerm !== "" &&
-              this.props.searchItem(
-                this.props.search.searchTerm,
-                this.props.data.categories
-              );
-          }}
-        />
-        {this.props.search.searchTerm !== "" && (
-          <TouchableOpacity
-            style={{ alignSelf: "center" }}
-            onPress={this.props.clear}
-          >
-            <MaterialIcons name="clear" style={styles.icon} />
-          </TouchableOpacity>
-        )}
-      </View>
-    );
-  }
-}
+const SearchBar = ({ data, search, searchItem, clear, setTerm }) => {
+  return (
+    <View style={styles.background}>
+      <EvilIcons name="search" style={styles.icon} />
+      <TextInput
+        placeholder="Search"
+        autoCapitalize="none"
+        autoCorrect={false}
+        style={styles.input}
+        value={search.searchTerm}
+        onChangeText={setTerm}
+        onEndEditing={() => {
+          search.searchTerm !== "" &&
+            searchItem(search.searchTerm, data.categories);
+        }}
+      />
+      {search.searchTerm !== "" && (
+        <TouchableOpacity style={{ alignSelf: "center" }} onPress={clear}>
+          <MaterialIcons name="clear" style={styles.icon} />
+        </TouchableOpacity>
+      )}
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   background: {

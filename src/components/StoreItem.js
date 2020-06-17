@@ -1,43 +1,44 @@
-import React, { Component } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { Text, View, Image, StyleSheet } from "react-native";
 import AddButton from "./AddButton";
 import AmountButton from "./AmountButton";
 
-class StoreItem extends Component {
-  contains = (article) => {
-    // Checks if array contains the article
-    return (
-      this.props.cart.findIndex((element) => element.id == article.id) !== -1
-    );
+const StoreItem = ({ cart, article }) => {
+  const product = article.item;
+
+  const contains = (product) => {
+    // Checks if array contains the product
+    return cart.findIndex((element) => element.id == product.id) !== -1;
   };
 
-  quantity = (article) => {
-    let index = this.props.cart.findIndex(
-      (element) => element.id == article.id
-    );
-    return this.props.cart[index].quantity;
+  const quantity = (product) => {
+    let index = cart.findIndex((element) => element.id == product.id);
+    return cart[index].quantity;
   };
 
-  render() {
-    const article = this.props.article.item;
-
-    return (
-      <View style={styles.container}>
-        <Image style={styles.image} source={{ uri: article.image }} />
-        <View style={styles.view}>
-          <Text style={styles.title}>{article.title}</Text>
-          <Text style={styles.subtitle}>{"$" + article.price}</Text>
-        </View>
-        {this.contains(article) ? (
-          <AmountButton article={article} quantity={this.quantity(article)} />
-        ) : (
-          <AddButton article={article} />
-        )}
+  return (
+    <View style={styles.container}>
+      <Image
+        style={styles.image}
+        source={
+          product.photoUrl
+            ? { uri: product.photoUrl }
+            : require("../../assets/placeholder.jpg")
+        }
+      />
+      <View style={styles.view}>
+        <Text style={styles.title}>{product.name}</Text>
+        <Text style={styles.subtitle}>{"$" + product.price}</Text>
       </View>
-    );
-  }
-}
+      {contains(product) ? (
+        <AmountButton article={product} quantity={quantity(product)} />
+      ) : (
+        <AddButton article={product} />
+      )}
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -55,10 +56,8 @@ const styles = StyleSheet.create({
     height: 70,
     borderRadius: 35,
     marginLeft: 15,
-    // Removing black color of the border in some images
-    // Should find and reupload other images
     borderWidth: 0.5,
-    borderColor: "white",
+    borderColor: "black",
   },
   title: {
     fontWeight: "bold",

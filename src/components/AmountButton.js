@@ -1,33 +1,31 @@
-import React, { Component } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import * as actions from "../actions/CartActions";
 
-class AmountButton extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <TouchableOpacity
-          onPress={() => {
-            //Remove 1 item of the cart
-            this.props.removeArticle(this.props.article);
-          }}
-        >
-          <Text style={styles.text}>-</Text>
-        </TouchableOpacity>
-        <Text style={styles.text}>{this.props.quantity}</Text>
-        <TouchableOpacity
-          onPress={() => {
-            //Add 1 item to the cart
-            this.props.addArticle(this.props.article);
-          }}
-        >
-          <Text style={styles.text}>+</Text>
-        </TouchableOpacity>
-      </View>
-    );
-  }
-}
+const AmountButton = ({ article, quantity, removeArticle, addArticle }) => {
+  return (
+    <View style={styles.container}>
+      <TouchableOpacity
+        onPress={() => {
+          //Remove 1 item of the cart
+          removeArticle(article);
+        }}
+      >
+        <Text style={styles.text}>-</Text>
+      </TouchableOpacity>
+      <Text style={styles.text}>{quantity}</Text>
+      <TouchableOpacity
+        onPress={() => {
+          //Add 1 item to the cart
+          addArticle(article);
+        }}
+      >
+        <Text style={styles.text}>+</Text>
+      </TouchableOpacity>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {

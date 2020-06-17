@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { AntDesign } from "@expo/vector-icons";
 import {
@@ -11,29 +11,27 @@ import {
 import CheckoutFooter from "../CheckoutFooter";
 import Card from "../Card";
 
-class CheckoutScreen extends Component {
-  renderItem(item) {
+const CheckoutScreen = ({ cart, navigation }) => {
+  const renderItem = (item) => {
     return <Card article={item} />;
-  }
+  };
 
-  render() {
-    return (
-      <SafeAreaView style={{ backgroundColor: "white", flex: 1 }}>
-        <Text style={styles.header}>Shopping Cart</Text>
-        <FlatList
-          style={styles.list}
-          showsVerticalScrollIndicator={false}
-          numColumns={2}
-          data={this.props.cart}
-          renderItem={({ item }) => this.renderItem(item)}
-          keyExtractor={(item) => item.id}
-          contentContainerStyle={styles.contentContainer}
-        />
-        <CheckoutFooter onPress={this.props.navigation.pop} />
-      </SafeAreaView>
-    );
-  }
-}
+  return (
+    <SafeAreaView style={{ backgroundColor: "white", flex: 1 }}>
+      <Text style={styles.header}>Shopping Cart</Text>
+      <FlatList
+        style={styles.list}
+        showsVerticalScrollIndicator={false}
+        numColumns={2}
+        data={cart}
+        renderItem={({ item }) => renderItem(item)}
+        keyExtractor={(item) => item.id}
+        contentContainerStyle={styles.contentContainer}
+      />
+      <CheckoutFooter onPress={navigation.pop} />
+    </SafeAreaView>
+  );
+};
 
 const styles = StyleSheet.create({
   contentContainer: {
@@ -45,7 +43,6 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     marginBottom: 25,
   },
-  list: {},
 });
 
 CheckoutScreen.navigationOptions = ({ navigation }) => {
@@ -67,7 +64,6 @@ CheckoutScreen.navigationOptions = ({ navigation }) => {
 const mapStateToProps = (state) => {
   return {
     cart: state.cart.articles,
-    totalPrice: state.cart.totalPrice,
   };
 };
 

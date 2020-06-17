@@ -1,36 +1,18 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-  Dimensions,
-} from "react-native";
-import * as actions from "../actions/CartActions";
+import React from "react";
+import { View, Text, StyleSheet, Image, Dimensions } from "react-native";
 
-class Card extends Component {
-  render() {
-    return (
-      <>
-        <TouchableOpacity>
-          <Image
-            style={styles.image}
-            source={{ uri: this.props.article.image }}
-          />
-          <View style={styles.textContainer}>
-            <Text style={styles.title}>{this.props.article.title}</Text>
-            <Text style={styles.price}>${this.props.article.price}</Text>
-          </View>
-          <Text style={styles.subtitle}>
-            {this.props.article.quantity} units
-          </Text>
-        </TouchableOpacity>
-      </>
-    );
-  }
-}
+const Card = ({ article }) => {
+  return (
+    <View>
+      <Image style={styles.image} source={{ uri: article.photoUrl }} />
+      <View style={styles.textContainer}>
+        <Text style={styles.title}>{article.name}</Text>
+        <Text style={styles.price}>${article.price}</Text>
+      </View>
+      <Text style={styles.subtitle}>{article.quantity} units</Text>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   textContainer: {
@@ -44,10 +26,6 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
     borderRadius: 8,
     height: Dimensions.get("window").width / 2,
-    // Removing black color of the border in some images
-    // Should find and reupload other images
-    borderWidth: 0.5,
-    borderColor: "white",
   },
   title: {
     fontWeight: "bold",
@@ -62,10 +40,4 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = (state) => {
-  return {
-    cart: state.cart.articles,
-  };
-};
-
-export default connect(mapStateToProps, actions)(Card);
+export default Card;

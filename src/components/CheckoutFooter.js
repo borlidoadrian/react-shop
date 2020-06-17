@@ -1,37 +1,10 @@
-import React, { Component } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import * as actions from "../actions/CartActions";
 
-class CheckoutFooter extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <View style={styles.textContainer}>
-          <Text style={styles.total}>Total:</Text>
-          <Text style={styles.price}>${this.props.totalPrice}</Text>
-        </View>
-        <TouchableOpacity
-          disabled={this.props.totalPrice === 0}
-          onPress={() => {
-            this.presentAlert();
-          }}
-        >
-          <View
-            style={
-              this.props.totalPrice === 0
-                ? styles.buttonContainerDisabled
-                : styles.buttonContainer
-            }
-          >
-            <Text style={styles.text}>Checkout</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
-    );
-  }
-
-  presentAlert() {
+const CheckoutFooter = ({ totalPrice, emptyCart, onPress }) => {
+  const presentAlert = () => {
     Alert.alert(
       "The purchase was successful",
       null,
@@ -39,15 +12,40 @@ class CheckoutFooter extends Component {
         {
           text: "OK",
           onPress: () => {
-            this.props.emptyCart();
-            this.props.onPress();
+            emptyCart();
+            onPress();
           },
         },
       ],
       { cancelable: false }
     );
-  }
-}
+  };
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.textContainer}>
+        <Text style={styles.total}>Total:</Text>
+        <Text style={styles.price}>${totalPrice}</Text>
+      </View>
+      <TouchableOpacity
+        disabled={totalPrice === 0}
+        onPress={() => {
+          presentAlert();
+        }}
+      >
+        <View
+          style={
+            totalPrice === 0
+              ? styles.buttonContainerDisabled
+              : styles.buttonContainer
+          }
+        >
+          <Text style={styles.text}>Checkout</Text>
+        </View>
+      </TouchableOpacity>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -94,7 +92,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-  return { totalPrice: state.cart.totalPrice };
+  return { totalPrice: Math.round(state.cart.totalPrice * 10) / 10 };
 };
 
 export default connect(mapStateToProps, actions)(CheckoutFooter);

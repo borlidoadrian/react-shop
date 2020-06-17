@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import {
   Text,
@@ -9,66 +9,62 @@ import {
   Dimensions,
 } from "react-native";
 import Dots from "react-native-dots-pagination";
+import * as actions from "../actions/DataActions";
 
-class Carousel extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      index: 0,
-    };
-  }
+const Carousel = ({ promoted, getPromoted }) => {
+  const [index, setIndex] = useState(0);
 
-  onViewableItemsChanged = ({ viewableItems, changed }) => {
-    this.setState({
-      index: changed[0].index,
-    });
-  };
+  const onViewableItemsChanged = React.useRef((info) => {
+    setIndex(info.changed[0].index);
+  });
 
-  renderItem(article) {
+  const renderItem = (product) => {
     return (
       <ImageBackground
-        source={{ uri: article.item.image }}
+        source={{ uri: product.item.photoUrl }}
         style={styles.image}
       >
         <View style={styles.container}>
-          <Text style={styles.title}>Product of the month</Text>
-          <Text style={styles.subtitle}>{article.item.title}</Text>
+          <Text style={styles.title}>{product.item.description}</Text>
+          <Text style={styles.subtitle}>{product.item.name}</Text>
         </View>
       </ImageBackground>
     );
-  }
+  };
 
-  render() {
-    return (
-      <View>
-        <FlatList
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          data={this.props.publicity}
-          keyExtractor={(article) => article.title}
-          renderItem={this.renderItem}
-          style={styles.list}
-          pagingEnabled
-          snapToAlignment={"start"}
-          decelerationRate={"fast"}
-          snapToInterval={Dimensions.get("window").width - 30}
-          onViewableItemsChanged={this.onViewableItemsChanged}
-          viewabilityConfig={{
-            itemVisiblePercentThreshold: 50,
-          }}
-        />
-        <Dots
-          passiveDotWidth={8}
-          passiveDotHeight={8}
-          activeDotHeight={10}
-          activeDotWidth={10}
-          length={this.props.publicity.length}
-          active={this.state.index}
-        />
-      </View>
-    );
-  }
-}
+  useEffect(() => {
+    getPromoted();
+  }, []);
+
+  return (
+    <View>
+      <FlatList
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        data={promoted}
+        keyExtractor={(product) => product.name}
+        renderItem={renderItem}
+        style={styles.list}
+        pagingEnabled
+        snapToAlignment={"start"}
+        decelerationRate={"fast"}
+        snapToInterval={Dimensions.get("window").width - 30}
+        onViewableItemsChanged={onViewableItemsChanged.current}
+        viewabilityConfig={{
+          itemVisiblePercentThreshold: 50,
+        }}
+      />
+      <Dots
+        passiveDotWidth={8}
+        passiveDotHeight={8}
+        activeDotHeight={10}
+        activeDotWidth={10}
+        length={promoted.length}
+        active={index}
+      />
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   list: {
@@ -107,7 +103,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-  return { publicity: state.data.publicity };
+  return { promoted: state.data.promoted };
 };
 
-export default connect(mapStateToProps)(Carousel);
+export default connect(mapStateToProps, actions)(Carousel);

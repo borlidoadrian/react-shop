@@ -53,19 +53,13 @@ function removeArticle(state, action) {
 }
 
 function updateQuantity(state, id, type) {
-  let index = state.articles.findIndex((element) => element.id == id);
-  let array = [...state.articles];
-
-  array[index] = {
-    ...state.articles[index],
-    quantity:
-      type === ADD
-        ? state.articles[index].quantity + 1
-        : state.articles[index].quantity - 1,
-  };
-
-  return array;
+  return state.articles.map((art) =>
+    art.id === id
+      ? { ...art, quantity: art.quantity + (type === ADD ? 1 : -1) }
+      : art
+  );
 }
+
 function contains(state, article) {
   // Checks if state contains the article
   return state.articles.findIndex((element) => element.id == article.id) !== -1;

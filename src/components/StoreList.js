@@ -1,50 +1,54 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Text, StyleSheet, SectionList } from "react-native";
 import Separator from "./Separator";
 import StoreItem from "./StoreItem";
+import * as actions from "../actions/DataActions";
 
-class StoreList extends Component {
-  renderItem(article) {
+const StoreList = ({ products, searchResults, getProducts }) => {
+  const renderItem = (article) => {
     return <StoreItem article={article} />;
-  }
+  };
 
-  sections() {
+  const sections = () => {
     let sections = [];
-    if (this.props.searchResults.length) {
+
+    if (searchResults.length) {
       sections.push({
         title: "Results",
-        data: this.props.searchResults,
+        data: searchResults,
         keyExtractor: (article) => article.id,
-        renderItem: this.renderItem,
+        renderItem: renderItem,
       });
     } else {
-      this.props.categories.forEach((category) => {
+      products.categories.forEach((category) => {
         sections.push({
           title: category.name,
-          data: category.articles,
-          keyExtractor: (article) => article.id,
-          renderItem: this.renderItem,
+          data: category.products,
+          keyExtractor: (product) => product.id,
+          renderItem: renderItem,
         });
       });
     }
 
     return sections;
-  }
+  };
 
-  render() {
-    return (
-      <SectionList
-        sections={this.sections()}
-        keyExtractor={(item, index) => item.id + index}
-        ItemSeparatorComponent={() => <Separator />}
-        renderSectionHeader={({ section }) => (
-          <Text style={styles.sectionHeader}>{section.title}</Text>
-        )}
-      />
-    );
-  }
-}
+  useEffect(() => {
+    getProducts();
+  }, []);
+
+  return (
+    <SectionList
+      sections={sections()}
+      keyExtractor={(item, index) => item.id + index}
+      ItemSeparatorComponent={() => <Separator />}
+      renderSectionHeader={({ section }) => (
+        <Text style={styles.sectionHeader}>{section.title}</Text>
+      )}
+    />
+  );
+};
 
 const styles = StyleSheet.create({
   sectionHeader: {
@@ -59,9 +63,9 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
   return {
-    categories: state.data.categories,
+    products: state.data.products,
     searchResults: state.search.results,
   };
 };
 
-export default connect(mapStateToProps)(StoreList);
+export default connect(mapStateToProps, actions)(StoreList);
