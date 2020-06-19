@@ -1,6 +1,6 @@
 export const ADD_ARTICLE = "ADD_ARTICLE";
 export const REMOVE_ARTICLE = "REMOVE_ARTICLE";
-export const EMPTY_CART = "EMPTY_CART";
+export const CHECKOUT = "CHECKOUT";
 export const ADD = "ADD";
 export const SUBSTRACT = "SUBSTRACT";
 export const SEARCH_ITEM = "SEARCH_ITEM";
@@ -16,4 +16,3 @@ export const GET_PURCHASES_SUCCESS = "GET_PURCHASES_SUCCESS";
 export const GET_PURCHASES_FAILURE = "GET_PURCHASES_FAILURE";
 export const CHECKOUT_SUCCESS = "CHECKOUT_SUCCESS";
 export const CHECKOUT_FAILURE = "CHECKOUT_FAILURE";
-export const LOGIN = "LOGIN";

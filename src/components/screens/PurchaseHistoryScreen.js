@@ -1,22 +1,17 @@
 import React from "react";
-import { SafeAreaView, TouchableOpacity, Text } from "react-native";
-import NavigationCartIcon from "../NavigationCartIcon";
+import { SafeAreaView } from "react-native";
+import HistoryList from "../HistoryList";
 
 const PurchaseHistoryScreen = () => {
   return (
     <SafeAreaView style={{ backgroundColor: "white", flex: 1 }}>
-      <Text>HISTORY</Text>
+      <HistoryList />
     </SafeAreaView>
   );
 };
 
 PurchaseHistoryScreen.navigationOptions = ({ navigation }) => {
   return {
-    headerRight: () => (
-      <TouchableOpacity onPress={() => navigation.navigate("Checkout")}>
-        <NavigationCartIcon />
-      </TouchableOpacity>
-    ),
     title: null,
     headerStyle: {
       shadowColor: "transparent",

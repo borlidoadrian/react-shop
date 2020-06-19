@@ -20,7 +20,6 @@ const CheckoutScreen = ({ cart, navigation }) => {
     <SafeAreaView style={{ backgroundColor: "white", flex: 1 }}>
       <Text style={styles.header}>Shopping Cart</Text>
       <FlatList
-        style={styles.list}
         showsVerticalScrollIndicator={false}
         numColumns={2}
         data={cart}

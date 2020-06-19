@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import * as actions from "../actions/CartActions";
 
-const CheckoutFooter = ({ totalPrice, emptyCart, onPress }) => {
+const CheckoutFooter = ({ totalPrice, checkout, onPress }) => {
   const presentAlert = () => {
     Alert.alert(
       "The purchase was successful",
@@ -12,7 +12,7 @@ const CheckoutFooter = ({ totalPrice, emptyCart, onPress }) => {
         {
           text: "OK",
           onPress: () => {
-            emptyCart();
+            checkout();
             onPress();
           },
         },

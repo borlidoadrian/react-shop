@@ -1,9 +1,10 @@
 import {
   ADD_ARTICLE,
   REMOVE_ARTICLE,
-  EMPTY_CART,
   ADD,
   SUBSTRACT,
+  CHECKOUT_SUCCESS,
+  CHECKOUT_FAILURE,
 } from "../config/ActionConstants";
 
 const initialState = {
@@ -17,11 +18,10 @@ export default (state = initialState, action) => {
       return addArticle(state, action);
     case REMOVE_ARTICLE:
       return removeArticle(state, action);
-    case EMPTY_CART:
-      return {
-        articles: [],
-        totalPrice: 0,
-      };
+    case CHECKOUT_SUCCESS:
+      return state;
+    case CHECKOUT_FAILURE:
+      return state;
     default:
       return state;
   }

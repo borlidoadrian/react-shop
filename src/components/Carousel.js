@@ -39,7 +39,7 @@ const Carousel = ({ promoted, getPromoted, isLoading }) => {
   }, []);
 
   return isLoading ? (
-    <ActivityIndicator size="large" style={styles.image} />
+    <ActivityIndicator size="large" style={styles.activityIndicator} />
   ) : (
     <View>
       <FlatList
@@ -103,6 +103,9 @@ const styles = StyleSheet.create({
     fontSize: 22,
     textShadowColor: "black",
     textShadowRadius: 0.5,
+  },
+  activityIndicator: {
+    height: 220,
   },
 });
 
