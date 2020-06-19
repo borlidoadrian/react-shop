@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import * as actions from "../actions/CartActions";
 
-const CheckoutFooter = ({ totalPrice, checkout, onPress }) => {
+const CheckoutFooter = ({ totalPrice, checkout, onPress, cart }) => {
   const presentAlert = () => {
     Alert.alert(
       "The purchase was successful",
@@ -12,7 +12,7 @@ const CheckoutFooter = ({ totalPrice, checkout, onPress }) => {
         {
           text: "OK",
           onPress: () => {
-            checkout();
+            checkout(cart);
             onPress();
           },
         },
@@ -92,7 +92,10 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-  return { totalPrice: Math.round(state.cart.totalPrice * 10) / 10 };
+  return {
+    totalPrice: Math.round(state.cart.totalPrice * 10) / 10,
+    cart: state.cart.articles,
+  };
 };
 
 export default connect(mapStateToProps, actions)(CheckoutFooter);

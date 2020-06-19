@@ -1,13 +1,12 @@
 import React from "react";
-import { connect } from "react-redux";
 import { View, Text, StyleSheet } from "react-native";
 
-const PurchaseDetailsFooter = ({ totalPrice }) => {
+const PurchaseDetailsFooter = () => {
   return (
     <View style={styles.container}>
       <View style={styles.textContainer}>
         <Text style={styles.total}>Total:</Text>
-        <Text style={styles.price}>${totalPrice}</Text>
+        <Text style={styles.price}>$987.6</Text>
       </View>
     </View>
   );
@@ -33,8 +32,4 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = (state) => {
-  return { totalPrice: Math.round(state.cart.totalPrice * 10) / 10 };
-};
-
-export default connect(mapStateToProps)(PurchaseDetailsFooter);
+export default PurchaseDetailsFooter;

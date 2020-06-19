@@ -5,14 +5,14 @@ import Separator from "./Separator";
 import HistoryItem from "./HistoryItem";
 import * as actions from "../actions/DataActions";
 
-const HistoryList = ({ purchases, getPurchases, isLoading }) => {
+const HistoryList = ({ purchases, getPurchases, isLoading, refresh }) => {
   const renderItem = (article) => {
     return <HistoryItem article={article} />;
   };
 
   useEffect(() => {
     getPurchases();
-  }, []);
+  }, [refresh]);
 
   return isLoading ? (
     <ActivityIndicator size="large" />
@@ -23,7 +23,7 @@ const HistoryList = ({ purchases, getPurchases, isLoading }) => {
       showsVerticalScrollIndicator={false}
       data={purchases}
       renderItem={({ item }) => renderItem(item)}
-      keyExtractor={(item) => item.id}
+      keyExtractor={(item) => item.date}
       contentContainerStyle={styles.contentContainer}
     />
   );
@@ -37,6 +37,7 @@ const mapStateToProps = (state) => {
   return {
     purchases: state.data.purchases,
     isLoading: state.data.loadingPurchases,
+    refresh: state.cart.refresh,
   };
 };
 

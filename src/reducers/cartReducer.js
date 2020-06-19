@@ -10,6 +10,7 @@ import {
 const initialState = {
   articles: [],
   totalPrice: 0,
+  refresh: false,
 };
 
 export default (state = initialState, action) => {
@@ -19,7 +20,7 @@ export default (state = initialState, action) => {
     case REMOVE_ARTICLE:
       return removeArticle(state, action);
     case CHECKOUT_SUCCESS:
-      return state;
+      return { articles: [], totalPrice: 0, refresh: !state.refresh };
     case CHECKOUT_FAILURE:
       return state;
     default:

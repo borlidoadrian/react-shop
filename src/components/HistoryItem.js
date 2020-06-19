@@ -1,22 +1,14 @@
 import React from "react";
-import { Text, View, Image, StyleSheet } from "react-native";
-import AddButton from "./AddButton";
+import { Text, View, StyleSheet, Button } from "react-native";
 
 const HistoryItem = ({ article }) => {
-  const product = article.item;
-
   return (
     <View style={styles.container}>
-      <Image
-        style={styles.image}
-        source={{ uri: product.photoUrl }}
-        defaultSource={require("../../assets/placeholder.jpg")}
-      />
       <View style={styles.view}>
-        <Text style={styles.title}>{product.name}</Text>
-        <Text style={styles.subtitle}>{"$" + product.price}</Text>
+        <Text style={styles.title}>{new Date(article.date).toString()}</Text>
+        <Text style={styles.subtitle}>{"$" + getPrice(article)}</Text>
       </View>
-      <AddButton article={product} />
+      <Button title="DETAILS" onPress={() => {}} />
     </View>
   );
 };
@@ -32,14 +24,6 @@ const styles = StyleSheet.create({
     flex: 2,
     paddingLeft: 15,
   },
-  image: {
-    width: 70,
-    height: 70,
-    borderRadius: 35,
-    marginLeft: 15,
-    borderWidth: 0.5,
-    borderColor: "black",
-  },
   title: {
     fontWeight: "bold",
     marginBottom: 5,
@@ -49,5 +33,17 @@ const styles = StyleSheet.create({
     color: "grey",
   },
 });
+
+const getPrice = (purchase) => {
+  let total = 0;
+
+  purchase.products.forEach((e) => {
+    for (let i = 0; i < e.quantity; i++) {
+      total += e.product.price;
+    }
+  });
+
+  return total;
+};
 
 export default HistoryItem;

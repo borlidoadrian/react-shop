@@ -38,11 +38,9 @@ export default (state = initialState, action) => {
       return { ...state, error: "GetPromoted Failed", loadingPromoted: false };
 
     case GET_PURCHASES_SUCCESS:
-      console.log("SUCCESS", action.payload);
       return { ...state, purchases: action.payload, loadingPurchases: false };
 
     case GET_PURCHASES_FAILURE:
-      console.log("FAILURE", action.payload);
       return {
         ...state,
         error: "GetPurchases Failed",

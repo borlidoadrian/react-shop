@@ -21,27 +21,16 @@ export const removeArticle = (article) => {
   };
 };
 
-export const checkout = () => {
+export const checkout = (cart) => {
   return (dispatch) => {
     getData("@token").then((token) => {
       fetch(BASE_URL + CHECKOUT, {
         method: "POST",
         headers: {
           Authorization: "Bearer " + token,
-          "Content-Type": "application/x-www-form-urlencoded",
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          cart: [
-            {
-              product_id: 1,
-              quantity: 1,
-            },
-            {
-              product_id: 2,
-              quantity: 1,
-            },
-          ],
-        }),
+        body: JSON.stringify(formatBody(cart)),
       })
         .then((response) => {
           dispatch({
@@ -65,4 +54,12 @@ const getData = async (key) => {
   } catch (e) {
     console.log(e);
   }
+};
+
+const formatBody = (cart) => {
+  let body = { cart: [] };
+  cart.forEach((e) => {
+    body.cart.push({ quantity: e.quantity, product_id: e.id });
+  });
+  return body;
 };
