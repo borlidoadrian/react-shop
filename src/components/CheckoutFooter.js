@@ -12,8 +12,7 @@ const CheckoutFooter = ({ totalPrice, checkout, onPress, cart }) => {
         {
           text: "OK",
           onPress: () => {
-            checkout(cart);
-            onPress();
+            checkout(cart).then(onPress());
           },
         },
       ],

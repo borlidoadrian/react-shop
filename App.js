@@ -9,9 +9,9 @@ import PurchaseHistoryScreen from "./src/components/screens/PurchaseHistoryScree
 import PurchaseDetailsScreen from "./src/components/screens/PurchaseDetailsScreen";
 import LoginScreen from "./src/components/screens/LoginScreen";
 import { FontAwesome5 } from "@expo/vector-icons";
-import { createStore, applyMiddleware } from "redux";
+import { createStore, applyMiddleware, compose } from "redux";
 import { Provider } from "react-redux";
-import ReduxThunk from "redux-thunk";
+import thunk from "redux-thunk";
 import promise from "redux-promise-middleware";
 import reducers from "./src/reducers/reducers";
 
@@ -60,9 +60,9 @@ const navigator = createSwitchNavigator({
 const App = createAppContainer(navigator);
 
 export default () => {
-  const composeStoreWithMiddleware = applyMiddleware(promise, ReduxThunk);
+  // const composeStoreWithMiddleware = applyMiddleware(promise, ReduxThunk);
 
-  const store = createStore(reducers, {}, composeStoreWithMiddleware);
+  const store = createStore(reducers, compose(applyMiddleware(thunk, promise)));
 
   return (
     <Provider store={store}>

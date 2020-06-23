@@ -12,7 +12,7 @@ import {
 import Dots from "react-native-dots-pagination";
 import * as actions from "../reducers/dataReducer";
 
-const Carousel = ({ promoted, getPromoted, isLoading }) => {
+const Carousel = ({ promoted, isLoading }) => {
   const [index, setIndex] = useState(0);
 
   const onViewableItemsChanged = React.useRef((info) => {

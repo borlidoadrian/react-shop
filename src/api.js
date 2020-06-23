@@ -1,6 +1,12 @@
-import * as constants from "./config/Constants";
+import {
+  PRODUCTS,
+  PROMOTED,
+  PURCHASES,
+  CHECKOUT,
+  BASE_URL,
+} from "./config/Constants";
 
-export const login = async () => {
+export const apiLogin = async () => {
   await new Promise((resolve) =>
     setTimeout(resolve, Math.random() * 3000 + 500)
   );
@@ -13,19 +19,19 @@ export const login = async () => {
     .join("");
 };
 
-export const getProducts = async (token) => {
+export const apiGetProducts = async (token) => {
   return request(token, PRODUCTS, "GET");
 };
 
-export const getPromoted = async (token) => {
-  await request(token, PROMOTED, "GET");
+export const apiGetPromoted = async (token) => {
+  return request(token, PROMOTED, "GET");
 };
 
-export const getPurchases = async (token) => {
-  await request(token, PURCHASES, "GET");
+export const apiGetPurchases = async (token) => {
+  return request(token, PURCHASES, "GET");
 };
 
-export const checkout = async (cart, token) => {
+export const apiCheckout = async (cart, token) => {
   return request(token, CHECKOUT, "POST", JSON.stringify(formatBody(cart)));
 };
 
@@ -35,14 +41,13 @@ async function request(token, path, method, body) {
       method: method,
       headers: {
         Authorization: "Bearer " + token,
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type": "application/json",
       },
       body: body,
     });
-    return response;
-  } catch (e) {
-    console.error(e);
-  }
+    let data = await response.json();
+    return data;
+  } catch (e) {}
 }
 
 const formatBody = (cart) => {

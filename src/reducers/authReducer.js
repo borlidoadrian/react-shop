@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-community/async-storage";
-import api from "../api";
+import { apiLogin } from "../api";
 import { getProducts, getPromoted } from "./dataReducer";
 
 const initialState = {
@@ -9,7 +9,7 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case "LOGIN_PENDING":
-      return { token: " " };
+      return { token: "" };
     case "LOGIN_FULFILLED":
       return { token: action.payload };
     case "LOGIN_REJECTED":
@@ -19,15 +19,14 @@ export default (state = initialState, action) => {
   }
 };
 
-export const login = async (dispatch, getState) => {
+export const login = () => async (dispatch, getState) => {
   await dispatch({
     type: "LOGIN",
-    payload: api.login(),
+    payload: apiLogin(),
   }).catch(() => {});
 
   const token = getState().auth.token;
   console.log(token);
-
   if (token) {
     storeToken(token);
     dispatch(getProducts(token));

@@ -1,4 +1,4 @@
-import api from "../api";
+import { apiCheckout } from "../api";
 
 const initialState = {
   articles: [],
@@ -23,10 +23,11 @@ export default (state = initialState, action) => {
   }
 };
 
-export const checkout = async (dispatch, getState) => {
+export const checkout = () => async (dispatch, getState) => {
+  console.log("CHECKOUT CALLED");
   await dispatch({
     type: "CHECKOUT",
-    payload: api.checkout(getState().cart.articles, getState().auth.token),
+    payload: apiCheckout(getState().cart.articles, getState().auth.token),
   });
 };
 

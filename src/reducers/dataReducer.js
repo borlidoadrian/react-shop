@@ -1,4 +1,4 @@
-import api from "../api";
+import { apiGetProducts, apiGetPromoted, apiGetPurchases } from "../api";
 
 const initialState = {
   products: { categories: [] },
@@ -25,7 +25,7 @@ export default (state = initialState, action) => {
     case "GET_PROMOTED_FULFILLED":
       return {
         ...state,
-        promoted: action.payload.json(),
+        promoted: action.payload,
         loadingPromoted: false,
       };
 
@@ -35,7 +35,7 @@ export default (state = initialState, action) => {
     case "GET_PURCHASES_FULFILLED":
       return {
         ...state,
-        purchases: action.payload.json(),
+        purchases: action.payload,
         loadingPurchases: false,
       };
 
@@ -51,33 +51,32 @@ export default (state = initialState, action) => {
   }
 };
 
-export const getProducts = async (dispatch, getState) => {
+export const getProducts = () => async (dispatch, getState) => {
   await dispatch({
     type: "GET_PRODUCTS",
-    payload: api.getProducts(getState().auth.token),
+    payload: apiGetProducts(getState().auth.token),
   });
 };
 
-export const getPromoted = async (dispatch, getState) => {
+export const getPromoted = () => async (dispatch, getState) => {
   await dispatch({
     type: "GET_PROMOTED",
-    payload: api.getPromoted(getState().auth.token),
+    payload: apiGetPromoted(getState().auth.token),
   });
 };
 
-export const getPurchases = async (dispatch, getState) => {
+export const getPurchases = () => async (dispatch, getState) => {
   await dispatch({
     type: "GET_PURCHASES",
-    payload: api.getPurchases(getState().auth.token),
+    payload: apiGetPurchases(getState().auth.token),
   });
 };
 
-function formatResponse(response) {
+function formatResponse(json) {
   var productsByCategory = {};
   var products = {
     categories: [],
   };
-  json = response.json();
   json.forEach((product) => {
     product.price = Math.round(product.price * 10) / 10;
     var name = product.category;
