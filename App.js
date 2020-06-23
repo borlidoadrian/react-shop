@@ -60,7 +60,7 @@ const navigator = createSwitchNavigator({
 const App = createAppContainer(navigator);
 
 export default () => {
-  composeStoreWithMiddleware = applyMiddleware(ReduxThunk, promise);
+  const composeStoreWithMiddleware = applyMiddleware(promise, ReduxThunk);
 
   const store = createStore(reducers, {}, composeStoreWithMiddleware);
 

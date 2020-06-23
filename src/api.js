@@ -1,7 +1,6 @@
 import * as constants from "./config/Constants";
 
 export const login = async () => {
-  console.log("LLEGO ACA");
   await new Promise((resolve) =>
     setTimeout(resolve, Math.random() * 3000 + 500)
   );

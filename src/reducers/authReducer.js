@@ -1,5 +1,6 @@
 import AsyncStorage from "@react-native-community/async-storage";
 import api from "../api";
+import { getProducts, getPromoted } from "./dataReducer";
 
 const initialState = {
   token: "",
@@ -29,8 +30,8 @@ export const login = async (dispatch, getState) => {
 
   if (token) {
     storeToken(token);
-    dispatch(api.getProducts(token));
-    dispatch(api.getPromoted(token));
+    dispatch(getProducts(token));
+    dispatch(getPromoted(token));
   } else {
     removeToken();
   }
