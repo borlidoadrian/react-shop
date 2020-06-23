@@ -1,14 +1,19 @@
 import React from "react";
 import { Text, View, StyleSheet, Button } from "react-native";
 
-const HistoryItem = ({ article }) => {
+const HistoryItem = ({ purchase, navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.view}>
-        <Text style={styles.title}>{new Date(article.date).toString()}</Text>
-        <Text style={styles.subtitle}>{"$" + getPrice(article)}</Text>
+        <Text style={styles.title}>{new Date(purchase.date).toString()}</Text>
+        <Text style={styles.subtitle}>{"$" + getPrice(purchase)}</Text>
       </View>
-      <Button title="DETAILS" onPress={() => {}} />
+      <Button
+        title="DETAILS"
+        onPress={() => {
+          navigation.navigate("PurchaseDetails", { purchase: purchase });
+        }}
+      />
     </View>
   );
 };

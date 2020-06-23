@@ -10,7 +10,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import Dots from "react-native-dots-pagination";
-import * as actions from "../actions/DataActions";
+import * as actions from "../reducers/dataReducer";
 
 const Carousel = ({ promoted, getPromoted, isLoading }) => {
   const [index, setIndex] = useState(0);
@@ -33,10 +33,6 @@ const Carousel = ({ promoted, getPromoted, isLoading }) => {
       </ImageBackground>
     );
   };
-
-  useEffect(() => {
-    getPromoted();
-  }, []);
 
   return isLoading ? (
     <ActivityIndicator size="large" style={styles.activityIndicator} />

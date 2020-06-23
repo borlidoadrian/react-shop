@@ -1,5 +1,3 @@
-import { SEARCH_ITEM, SET_TERM, CLEAR } from "../config/ActionConstants";
-
 const initialState = {
   results: [],
   searchTerm: "",
@@ -7,17 +5,17 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case SEARCH_ITEM:
+    case "SEARCH_ITEM":
       return {
         results: filter(action),
         searchTerm: action.payload,
       };
-    case SET_TERM:
+    case "SET_TERM":
       return {
         results: action.payload !== "" ? state.results : [],
         searchTerm: action.payload,
       };
-    case CLEAR:
+    case "CLEAR":
       return {
         results: [],
         searchTerm: "",

@@ -2,15 +2,15 @@ import React from "react";
 import { SafeAreaView } from "react-native";
 import HistoryList from "../HistoryList";
 
-const PurchaseHistoryScreen = () => {
+const PurchaseHistoryScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={{ backgroundColor: "white", flex: 1 }}>
-      <HistoryList />
+      <HistoryList navigation={navigation} />
     </SafeAreaView>
   );
 };
 
-PurchaseHistoryScreen.navigationOptions = ({ navigation }) => {
+PurchaseHistoryScreen.navigationOptions = () => {
   return {
     title: null,
     headerStyle: {

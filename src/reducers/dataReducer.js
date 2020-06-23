@@ -1,13 +1,4 @@
-import {
-  GET_PRODUCTS_SUCCESS,
-  GET_PRODUCTS_FAILURE,
-  GET_PROMOTED_SUCCESS,
-  GET_PROMOTED_FAILURE,
-  GET_PURCHASES_SUCCESS,
-  GET_PURCHASES_FAILURE,
-  CHECKOUT_SUCCESS,
-  CHECKOUT_FAILURE,
-} from "../config/ActionConstants";
+import api from "../api";
 
 const initialState = {
   products: { categories: [] },
@@ -21,49 +12,72 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case GET_PRODUCTS_SUCCESS:
+    case "GET_PRODUCTS_FULFILLED":
       return {
         ...state,
-        products: formatJson(action.payload),
+        products: formatResponse(action.payload),
         loadingProducts: false,
       };
 
-    case GET_PRODUCTS_FAILURE:
+    case "GET_PRODUCTS_REJECTED":
       return { ...state, error: "GetProducts Failed", loadingProducts: false };
 
-    case GET_PROMOTED_SUCCESS:
-      return { ...state, promoted: action.payload, loadingPromoted: false };
+    case "GET_PROMOTED_FULFILLED":
+      return {
+        ...state,
+        promoted: action.payload.json(),
+        loadingPromoted: false,
+      };
 
-    case GET_PROMOTED_FAILURE:
+    case "GET_PROMOTED_REJECTED":
       return { ...state, error: "GetPromoted Failed", loadingPromoted: false };
 
-    case GET_PURCHASES_SUCCESS:
-      return { ...state, purchases: action.payload, loadingPurchases: false };
+    case "GET_PURCHASES_FULFILLED":
+      return {
+        ...state,
+        purchases: action.payload.json(),
+        loadingPurchases: false,
+      };
 
-    case GET_PURCHASES_FAILURE:
+    case "GET_PURCHASES_REJECTED":
       return {
         ...state,
         error: "GetPurchases Failed",
         loadingPurchases: false,
       };
 
-    case CHECKOUT_SUCCESS:
-      return state;
-
-    case CHECKOUT_FAILURE:
-      return state;
-
     default:
       return state;
   }
 };
 
-function formatJson(json) {
+export const getProducts = async (dispatch, getState) => {
+  await dispatch({
+    type: "GET_PRODUCTS",
+    payload: api.getProducts(getState().auth.token),
+  });
+};
+
+export const getPromoted = async (dispatch, getState) => {
+  await dispatch({
+    type: "GET_PROMOTED",
+    payload: api.getPromoted(getState().auth.token),
+  });
+};
+
+export const getPurchases = async (dispatch, getState) => {
+  await dispatch({
+    type: "GET_PURCHASES",
+    payload: api.getPurchases(getState().auth.token),
+  });
+};
+
+function formatResponse(response) {
   var productsByCategory = {};
   var products = {
     categories: [],
   };
-
+  json = response.json();
   json.forEach((product) => {
     product.price = Math.round(product.price * 10) / 10;
     var name = product.category;

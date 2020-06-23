@@ -3,11 +3,17 @@ import { connect } from "react-redux";
 import { StyleSheet, FlatList, ActivityIndicator } from "react-native";
 import Separator from "./Separator";
 import HistoryItem from "./HistoryItem";
-import * as actions from "../actions/DataActions";
+import * as actions from "../reducers/dataReducer";
 
-const HistoryList = ({ purchases, getPurchases, isLoading, refresh }) => {
-  const renderItem = (article) => {
-    return <HistoryItem article={article} />;
+const HistoryList = ({
+  purchases,
+  getPurchases,
+  isLoading,
+  refresh,
+  navigation,
+}) => {
+  const renderItem = (purchase) => {
+    return <HistoryItem purchase={purchase} navigation={navigation} />;
   };
 
   useEffect(() => {

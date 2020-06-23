@@ -1,16 +1,42 @@
 import React from "react";
 import { AntDesign } from "@expo/vector-icons";
-import { SafeAreaView, Text, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  SafeAreaView,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  FlatList,
+} from "react-native";
+import DetailsCard from "../DetailsCard";
+import PurchaseDetailsFooter from "../PurchaseDetailsFooter";
 
-const PurchaseDetailsScreen = () => {
+const PurchaseDetailsScreen = ({ navigation }) => {
+  const purchase = navigation.getParam("purchase");
+
+  const renderItem = (item) => {
+    return <DetailsCard product={item} />;
+  };
+
   return (
     <SafeAreaView style={{ backgroundColor: "white", flex: 1 }}>
       <Text style={styles.header}>Purchase Details</Text>
+      <FlatList
+        showsVerticalScrollIndicator={false}
+        numColumns={2}
+        data={purchase.products}
+        renderItem={({ item }) => renderItem(item)}
+        keyExtractor={(item) => item.id}
+        contentContainerStyle={styles.contentContainer}
+      />
+      <PurchaseDetailsFooter />
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  contentContainer: {
+    justifyContent: "space-between",
+  },
   header: {
     fontWeight: "bold",
     fontSize: 25,

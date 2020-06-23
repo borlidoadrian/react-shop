@@ -1,4 +1,5 @@
 import React from "react";
+import { StatusBar } from "react-native";
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import { createBottomTabNavigator } from "react-navigation-tabs";
@@ -7,12 +8,12 @@ import CheckoutScreen from "./src/components/screens/CheckoutScreen";
 import PurchaseHistoryScreen from "./src/components/screens/PurchaseHistoryScreen";
 import PurchaseDetailsScreen from "./src/components/screens/PurchaseDetailsScreen";
 import LoginScreen from "./src/components/screens/LoginScreen";
-import { Provider } from "react-redux";
-import { createStore, applyMiddleware } from "redux";
-import reducers from "./src/reducers/reducers";
-import { StatusBar } from "react-native";
-import ReduxThunk from "redux-thunk";
 import { FontAwesome5 } from "@expo/vector-icons";
+import { createStore, applyMiddleware } from "redux";
+import { Provider } from "react-redux";
+import ReduxThunk from "redux-thunk";
+import promise from "redux-promise-middleware";
+import reducers from "./src/reducers/reducers";
 
 const navigator = createSwitchNavigator({
   Login: LoginScreen,
@@ -59,7 +60,9 @@ const navigator = createSwitchNavigator({
 const App = createAppContainer(navigator);
 
 export default () => {
-  const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
+  composeStoreWithMiddleware = applyMiddleware(ReduxThunk, promise);
+
+  const store = createStore(reducers, {}, composeStoreWithMiddleware);
 
   return (
     <Provider store={store}>

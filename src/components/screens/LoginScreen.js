@@ -1,40 +1,19 @@
 import React from "react";
+import { connect } from "react-redux";
 import { View, StyleSheet, Button, Text } from "react-native";
-import AsyncStorage from "@react-native-community/async-storage";
+import * as actions from "../../reducers/authReducer";
 
-const LoginScreen = ({ navigation }) => {
+const LoginScreen = ({ navigation, login }) => {
   return (
     <View style={styles.container}>
       <Button
         title="LOGIN"
         onPress={() => {
-          login().then((token) => {
-            storeToken(token).then(navigation.navigate("mainFlow"));
-          });
+          login().then(navigation.navigate("mainFlow"));
         }}
       />
     </View>
   );
-};
-
-async function login() {
-  await new Promise((resolve) =>
-    setTimeout(resolve, Math.random() * 3000 + 500)
-  );
-  const characters =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  const charactersLength = characters.length;
-  return Array.from({ length: 36 }, (_, i) => i)
-    .map(() => characters.charAt(Math.floor(Math.random() * charactersLength)))
-    .join("");
-}
-
-const storeToken = async (token) => {
-  try {
-    await AsyncStorage.setItem("@token", token);
-  } catch (e) {
-    console.log(e);
-  }
 };
 
 LoginScreen.navigationOptions = () => {
@@ -51,4 +30,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginScreen;
+export default connect(null, actions)(LoginScreen);

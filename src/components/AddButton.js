@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import * as actions from "../actions/CartActions";
+import * as actions from "../reducers/cartReducer";
 
 const AddButton = ({ article, addArticle }) => {
   return (

@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
-import * as actions from "../actions/CartActions";
+import * as actions from "../reducers/cartReducer";
 
 const CheckoutFooter = ({ totalPrice, checkout, onPress, cart }) => {
   const presentAlert = () => {

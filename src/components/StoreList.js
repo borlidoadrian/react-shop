@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Text, StyleSheet, SectionList, ActivityIndicator } from "react-native";
 import Separator from "./Separator";
 import StoreItem from "./StoreItem";
-import * as actions from "../actions/DataActions";
+import * as actions from "../reducers/dataReducer";
 
 const StoreList = ({ products, searchResults, getProducts, isLoading }) => {
   const renderItem = (article) => {
@@ -33,10 +33,6 @@ const StoreList = ({ products, searchResults, getProducts, isLoading }) => {
 
     return sections;
   };
-
-  useEffect(() => {
-    getProducts();
-  }, []);
 
   return isLoading ? (
     <ActivityIndicator size="large" />
