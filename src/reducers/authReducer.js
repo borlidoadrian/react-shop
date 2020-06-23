@@ -4,16 +4,17 @@ import { getProducts, getPromoted } from "./dataReducer";
 
 const initialState = {
   token: "",
+  error: "",
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case "LOGIN_PENDING":
-      return { token: "" };
+      return { token: "", error: "" };
     case "LOGIN_FULFILLED":
-      return { token: action.payload };
+      return { token: action.payload, error: "" };
     case "LOGIN_REJECTED":
-      return state;
+      return { token: "", error: "Login Failed" };
     default:
       return state;
   }

@@ -25,15 +25,37 @@ export default (state = initialState, action) => {
   }
 };
 
-function filter(action) {
+export const searchItem = (param, array) => {
+  return {
+    type: "SEARCH_ITEM",
+    payload: param,
+    arrayToFilter: array,
+  };
+};
+
+export const setTerm = (term) => {
+  return {
+    type: "SET_TERM",
+    payload: term,
+  };
+};
+
+export const clear = () => {
+  return {
+    type: "CLEAR",
+  };
+};
+
+const filter = (action) => {
+  console.log(action.arrayToFilter);
   return action.arrayToFilter
     .reduce(function (accumulator, currentValue) {
-      return [...accumulator, ...currentValue.articles];
+      return [...accumulator, ...currentValue.products];
     }, [])
     .filter(function (item) {
       return (
-        item.title.toLowerCase().includes(action.payload.toLowerCase()) ||
+        item.name.toLowerCase().includes(action.payload.toLowerCase()) ||
         item.category.toLowerCase().includes(action.payload.toLowerCase())
       );
     });
-}
+};

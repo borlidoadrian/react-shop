@@ -12,40 +12,43 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case "GET_PRODUCTS_PENDING":
+      return { ...state, error: "", loadingProducts: true };
     case "GET_PRODUCTS_FULFILLED":
       return {
         ...state,
+        error: "",
         products: formatResponse(action.payload),
         loadingProducts: false,
       };
-
     case "GET_PRODUCTS_REJECTED":
       return { ...state, error: "GetProducts Failed", loadingProducts: false };
-
+    case "GET_PROMOTED_PENDING":
+      return { ...state, error: "", loadingPromoted: true };
     case "GET_PROMOTED_FULFILLED":
       return {
         ...state,
+        error: "",
         promoted: action.payload,
         loadingPromoted: false,
       };
-
     case "GET_PROMOTED_REJECTED":
       return { ...state, error: "GetPromoted Failed", loadingPromoted: false };
-
+    case "GET_PURCHASES_PENDING":
+      return { ...state, error: "", loadingPurchases: true };
     case "GET_PURCHASES_FULFILLED":
       return {
         ...state,
+        error: "",
         purchases: action.payload,
         loadingPurchases: false,
       };
-
     case "GET_PURCHASES_REJECTED":
       return {
         ...state,
         error: "GetPurchases Failed",
         loadingPurchases: false,
       };
-
     default:
       return state;
   }
@@ -72,7 +75,7 @@ export const getPurchases = () => async (dispatch, getState) => {
   });
 };
 
-function formatResponse(json) {
+const formatResponse = (json) => {
   var productsByCategory = {};
   var products = {
     categories: [],
@@ -93,4 +96,4 @@ function formatResponse(json) {
     }
   }
   return products;
-}
+};

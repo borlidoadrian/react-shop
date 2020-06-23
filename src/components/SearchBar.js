@@ -3,7 +3,7 @@ import { View, TextInput, StyleSheet, TouchableOpacity } from "react-native";
 import { EvilIcons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { connect } from "react-redux";
-import * as actions from "../actions/SearchActions";
+import * as actions from "../reducers/searchReducer";
 
 const SearchBar = ({ data, search, searchItem, clear, setTerm }) => {
   return (
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-  return { data: state.data, search: state.search };
+  return { data: state.data.products, search: state.search };
 };
 
 export default connect(mapStateToProps, actions)(SearchBar);

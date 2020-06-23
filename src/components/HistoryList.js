@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { StyleSheet, FlatList, ActivityIndicator } from "react-native";
+import { StyleSheet, FlatList, ActivityIndicator, Text } from "react-native";
 import Separator from "./Separator";
 import HistoryItem from "./HistoryItem";
 import * as actions from "../reducers/dataReducer";
@@ -22,7 +22,7 @@ const HistoryList = ({
 
   return isLoading ? (
     <ActivityIndicator size="large" />
-  ) : (
+  ) : purchases.length ? (
     <FlatList
       ItemSeparatorComponent={() => <Separator />}
       style={styles.flatList}
@@ -32,10 +32,16 @@ const HistoryList = ({
       keyExtractor={(item) => item.date}
       contentContainerStyle={styles.contentContainer}
     />
+  ) : (
+    <Text style={styles.text}>No purchases were made</Text>
   );
 };
 
 const styles = StyleSheet.create({
+  text: {
+    fontSize: 18,
+    marginHorizontal: 15,
+  },
   flatList: {},
 });
 
