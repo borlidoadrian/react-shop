@@ -7,7 +7,7 @@ const Card = ({ article }) => {
       <Image
         style={styles.image}
         source={{ uri: article.photoUrl }}
-        defaultSource={require("../../assets/loadingImage.png")}
+        defaultSource={require("../../assets/placeholder.jpg")}
       />
       <View style={styles.textContainer}>
         <Text style={styles.title}>{article.name}</Text>

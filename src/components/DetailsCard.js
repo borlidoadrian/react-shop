@@ -9,11 +9,11 @@ const DetailsCard = ({ product }) => {
       <Image
         style={styles.image}
         source={{ uri: article.photoUrl }}
-        defaultSource={require("../../assets/loadingImage.png")}
+        defaultSource={require("../../assets/placeholder.jpg")}
       />
       <View style={styles.textContainer}>
         <Text style={styles.title}>{article.name}</Text>
-        <Text style={styles.price}>${article.price}</Text>
+        <Text style={styles.price}>${Math.round(article.price * 10) / 10}</Text>
       </View>
       <Text style={styles.subtitle}>{product.quantity} units</Text>
     </View>

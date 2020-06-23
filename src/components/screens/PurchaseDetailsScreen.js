@@ -12,6 +12,7 @@ import PurchaseDetailsFooter from "../PurchaseDetailsFooter";
 
 const PurchaseDetailsScreen = ({ navigation }) => {
   const purchase = navigation.getParam("purchase");
+  const totalPrice = navigation.getParam("price");
 
   const renderItem = (item) => {
     return <DetailsCard product={item} />;
@@ -28,7 +29,7 @@ const PurchaseDetailsScreen = ({ navigation }) => {
         keyExtractor={(item) => item.id}
         contentContainerStyle={styles.contentContainer}
       />
-      <PurchaseDetailsFooter />
+      <PurchaseDetailsFooter total={totalPrice} />
     </SafeAreaView>
   );
 };

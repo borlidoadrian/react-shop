@@ -11,7 +11,10 @@ const HistoryItem = ({ purchase, navigation }) => {
       <Button
         title="DETAILS"
         onPress={() => {
-          navigation.navigate("PurchaseDetails", { purchase: purchase });
+          navigation.navigate("PurchaseDetails", {
+            purchase: purchase,
+            price: getPrice(purchase),
+          });
         }}
       />
     </View>
@@ -48,7 +51,7 @@ const getPrice = (purchase) => {
     }
   });
 
-  return total;
+  return Math.round(total * 10) / 10;
 };
 
 export default HistoryItem;

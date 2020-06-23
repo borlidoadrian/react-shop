@@ -24,7 +24,6 @@ export default (state = initialState, action) => {
 };
 
 export const checkout = () => async (dispatch, getState) => {
-  console.log("CHECKOUT CALLED");
   await dispatch({
     type: "CHECKOUT",
     payload: apiCheckout(getState().cart.articles, getState().auth.token),

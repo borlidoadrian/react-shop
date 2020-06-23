@@ -26,7 +26,6 @@ export const login = () => async (dispatch, getState) => {
   }).catch(() => {});
 
   const token = getState().auth.token;
-  console.log(token);
   if (token) {
     storeToken(token);
     dispatch(getProducts(token));
