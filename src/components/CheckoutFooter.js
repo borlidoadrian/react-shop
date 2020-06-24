@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import * as actions from "../reducers/cartReducer";
 
-const CheckoutFooter = ({ totalPrice, checkout, onPress, cart }) => {
+const CheckoutFooter = ({ totalPrice, checkout, onPress }) => {
   const presentAlert = () => {
     Alert.alert(
       "The purchase was successful",
@@ -12,7 +12,7 @@ const CheckoutFooter = ({ totalPrice, checkout, onPress, cart }) => {
         {
           text: "OK",
           onPress: () => {
-            checkout(cart).then(onPress());
+            checkout().then(onPress());
           },
         },
       ],
@@ -93,7 +93,6 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => {
   return {
     totalPrice: Math.round(state.cart.totalPrice * 10) / 10,
-    cart: state.cart.articles,
   };
 };
 

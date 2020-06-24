@@ -47,7 +47,6 @@ export const clear = () => {
 };
 
 const filter = (action) => {
-  console.log(action.arrayToFilter);
   return action.arrayToFilter
     .reduce(function (accumulator, currentValue) {
       return [...accumulator, ...currentValue.products];

@@ -21,6 +21,16 @@ const HistoryItem = ({ purchase, navigation }) => {
   );
 };
 
+const getPrice = (purchase) => {
+  let total = 0;
+  purchase.products.forEach((e) => {
+    for (let i = 0; i < e.quantity; i++) {
+      total += e.product.price;
+    }
+  });
+  return Math.round(total * 10) / 10;
+};
+
 const styles = StyleSheet.create({
   container: {
     height: 100,
@@ -41,17 +51,5 @@ const styles = StyleSheet.create({
     color: "grey",
   },
 });
-
-const getPrice = (purchase) => {
-  let total = 0;
-
-  purchase.products.forEach((e) => {
-    for (let i = 0; i < e.quantity; i++) {
-      total += e.product.price;
-    }
-  });
-
-  return Math.round(total * 10) / 10;
-};
 
 export default HistoryItem;
